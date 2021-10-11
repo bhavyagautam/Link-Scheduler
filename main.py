@@ -1,6 +1,10 @@
 import datetime
 import webbrowser
 import time
+from pynput import keyboard
+from pynput.keyboard import Key,Controller
+keyboard=Controller()
+
 cnt=int(input("How many classes today?"))
 link=[None]*cnt
 classtime=[None]*cnt
@@ -18,6 +22,16 @@ loop=0
 while loop<cnt:
     now=datetime.datetime.now()
     if(now>classtime[loop]):
+        if loop:
+            keyboard.press(Key.alt)
+            keyboard.press('q')
+            time.sleep(0.5)
+            keyboard.release(Key.alt)
+            keyboard.release('q')
+            time.sleep(1)
+            keyboard.press(Key.enter)
+            keyboard.release(Key.enter)
+            time.sleep(1)
         webbrowser.open(link[loop])
         if cnt-loop!=1: 
             delay=classtime[loop+1]-classtime[loop]
