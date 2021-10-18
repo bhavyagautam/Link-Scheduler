@@ -1,5 +1,4 @@
 import datetime
-from functools import total_ordering
 import webbrowser
 import time
 from pynput import keyboard
@@ -24,7 +23,7 @@ def remove_data(day):
         f.seek(0)
         d = f.readlines()
     ln=int(input(("Which no. link do you want to delete?")))
-    #choice to not delete anything, it was deleting last value(-1) otherwise
+    '''choice to not delete anything, it was deleting last value(-1) otherwise'''
     if ln==0:
         print("No link deleted")
         main()
@@ -51,11 +50,11 @@ def work():
     now=datetime.datetime.now()
     today=(now.strftime("%A")+".txt").lower()
 
-    #no. of links on that particular day and assignig values for classtime and links
+    '''no. of links on that particular day and assigning values for classtime and links'''
     try:
         with open(today,"r") as f:
                 lst=f.read().split("\n")
-                cnt=len(lst)
+                cnt=len(lst) 
                 f.seek(0)
                 link=[None]*cnt
                 classtime=[None]*cnt
@@ -67,13 +66,17 @@ def work():
     except:
         print("No meetings exist today")
         main()
-       
-    #insert code to check what the correct classtime will be
-    delay=classtime[0]-now
+    '''Finding the starting class'''   
+    now=datetime.datetime.now()
+    for i in range(cnt):
+        if(classtime[i]>now):
+            break
+    loop=i
+    delay=classtime[loop]-now
     print("Time before next link is opened ",delay)
     time.sleep(delay.total_seconds())
-    loop=0
-    while loop<cnt:#loop value needs to be changed before this ref:48
+    
+    while loop<cnt:
         now=datetime.datetime.now()
         '''This is to close zoom is a meeting is already running
         while the next link is being opened'''
@@ -103,7 +106,7 @@ def work():
     main()   
 
 def main():
-    print('''1:Execute scheduled links
+    print('''1:Execute scheduled links of the day
     \b\b\b\b2:Add links to a day
     \b\b\b\b3:Remove links from a day
     \b\b\b\b4:Show all links of a day
