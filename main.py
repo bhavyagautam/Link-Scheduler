@@ -46,7 +46,7 @@ def show_data(day):
     main()
 
 def work():
-    #finding today's day
+    '''finding today's day'''
     now=datetime.datetime.now()
     today=(now.strftime("%A")+".txt").lower()
 
