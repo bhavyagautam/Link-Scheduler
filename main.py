@@ -54,7 +54,8 @@ def work():
     try:
         with open(today,"r") as f:
                 lst=f.read().split("\n")
-                cnt=len(lst) 
+                cnt=len(lst)-1
+                '''day file has extra line at the end because of \n so need to remove that extra line from cnt otherwise index out of bound error''' 
                 f.seek(0)
                 link=[None]*cnt
                 classtime=[None]*cnt
